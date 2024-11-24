@@ -1,9 +1,6 @@
-import express, { type Request, type Response } from "express";
+import createApp from "./app";
 
-const app = express();
+const port = process.env.PORT;
+const app = createApp();
 
-app.get("/", (request: Request, response: Response) => {
-    response.send("Hello World");
-});
-
-app.listen(3333);
+app.listen(port, () => console.log(`Server running at port: ${port}`));
