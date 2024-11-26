@@ -1,6 +1,9 @@
 export type CreatePlayerDTO = {
     name: string;
-    club: string;
+    club: {
+        id: number;
+        name: string;
+    };
     nationality: string;
     position: string;
     statistics: {

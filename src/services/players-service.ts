@@ -14,7 +14,7 @@ export class PlayersService {
 	async findMany(): Promise<ResponseData<Player[]>> {
 		const data = await this.playersRepository.findMany();
 
-		const statusCode = data ? StatusCode.OK : StatusCode.NO_CONTENT;
+		const statusCode = data.length ? StatusCode.OK : StatusCode.NO_CONTENT;
 
 		return {
 			statusCode,
@@ -38,14 +38,18 @@ export class PlayersService {
 	): Promise<ResponseData<number | undefined>> {
 		if (Object.keys(dto).length === 5) {
 			const player: Player = {
-				id: 1,
+				id: 0,
 				...dto,
+				statistics: {
+					id: 0,
+					...dto.statistics,
+				},
 			};
-			await this.playersRepository.create(player);
+			const insertedId = await this.playersRepository.create(player);
 
 			return {
 				statusCode: StatusCode.CREATED,
-				data: player.id,
+				data: insertedId,
 			};
 		}
 
@@ -83,10 +87,10 @@ export class PlayersService {
                 };
             }
 
-            player.statistics = { ...dto };
+            player.statistics = { id: player.statistics.id, ...dto };
 
             let statusCode = StatusCode.NO_CONTENT;
-			const isUpdated = await this.playersRepository.update(id, player);
+			const isUpdated = await this.playersRepository.update(player);
 
             if(!isUpdated) {
                 statusCode = StatusCode.BAD_REQUEST;

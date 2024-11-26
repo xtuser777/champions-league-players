@@ -13,6 +13,7 @@
   "license": "ISC",
   "description": "API for retrieving information and statistics of champions league players",
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/node": "^22.9.3",
     "tsup": "^8.3.5",
@@ -20,6 +21,9 @@
     "typescript": "^5.7.2"
   },
   "dependencies": {
-    "express": "^4.21.1"
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
   }
 }
